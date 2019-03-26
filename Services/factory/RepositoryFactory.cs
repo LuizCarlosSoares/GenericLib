@@ -11,4 +11,12 @@ public class RepositoryFactory<T> where T: class, IEntity {
        return type;
 
     }
+
+    public virtual IRepository<T> Get(IUnitOfWork unitOfWork){
+
+       Type typeParameterType = typeof(Repository<T>);      
+       Repository<T> type = Activator.CreateInstance(typeParameterType,unitOfWork) as Repository<T>;
+       return type;
+
+    }
 }

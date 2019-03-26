@@ -22,7 +22,7 @@ namespace tests
         public void ShouldReceive_1_AfterCall_Add_On_Service_Using_Repository_Implementation()
         {
 
-            IRepository<User> repo = new RepositoryFactory<User>().Get();
+            IRepository<User> repo = new RepositoryFactory<User>().Get(GetUnitOfWork().Object);
             IService<User> service = new Service<User>(repo);
             var expected = 1;
             var actual = service.Add(Moq.It.IsAny<User>());
@@ -35,7 +35,7 @@ namespace tests
         {
 
             var expected = typeof(Repository<User>);
-            var actual = new RepositoryFactory<User>().Get().GetType();
+            var actual = new RepositoryFactory<User>().Get(GetUnitOfWork().Object).GetType();
             Assert.Equal(expected, actual);
         }
 
@@ -44,8 +44,15 @@ namespace tests
         {
 
             var expected = typeof(Repository<Company>);
-            var actual = new RepositoryFactory<Company>().Get().GetType();
+            var actual = new RepositoryFactory<Company>().Get(GetUnitOfWork().Object).GetType();
             Assert.Equal(expected, actual);
+        }
+
+        private Moq.Mock<IUnitOfWork> GetUnitOfWork()
+        {
+            var mockUnitOfWork = new Moq.Mock<IUnitOfWork>();
+            mockUnitOfWork.Setup(c => c.Commit()).Returns(1);
+            return mockUnitOfWork;
         }
     }
 }

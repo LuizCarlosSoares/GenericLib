@@ -4,4 +4,6 @@
 /Services/bin/
 /Tests/bin/
 /Tests/obj/
+/DataAccess/bin/
+/DataAccess/obj/
 .gitignore.swp
