@@ -1,0 +1,7 @@
+/Domain/obj/
+/Domain/bin/
+/Services/obj/
+/Services/bin/
+/Tests/bin/
+/Tests/obj/
+.gitignore.swp
