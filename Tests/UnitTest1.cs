@@ -40,6 +40,17 @@ namespace tests
         }
 
         [Fact]
+        public void Should_Validate_An_Entity_Before_Save()
+        {
+
+            var EntityMock = new Moq.Mock<IEntity>();
+            EntityMock.Setup(c=>c.Validate());
+            IRepository<IEntity> repo = new RepositoryFactory<IEntity>().Get(GetUnitOfWork().Object);
+            IService<IEntity> service = new Service<IEntity>(repo);
+            service.Add(EntityMock.Object);
+            EntityMock.Verify(m=>m.Validate(),Moq.Times.Once());
+        }
+        [Fact]
         public void Should_Get_A_Company_RepositoryInstance()
         {
 
