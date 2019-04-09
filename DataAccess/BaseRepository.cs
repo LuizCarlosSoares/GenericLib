@@ -26,7 +26,7 @@ namespace DataAcess.Repository
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            this.unitOfWork.Commit();
         }
 
         public IEnumerable<T> GetAll()
